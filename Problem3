@@ -1,0 +1,20 @@
+initBalance = balance 
+monthlyInterestRate = annualInterestRate/ 12
+lowBalance = balance/12.0
+highBalance = (balance * ((1.0 + monthlyInterestRate)**12))/12.0
+minPayment = (lowBalance + highBalance)/2.0
+month = 0
+while abs (balance) >= 0.01:
+    month = 0
+    balance = initBalance
+    while month < 12:
+        unpaidBalance = balance - minPayment
+        balance = unpaidBalance + (monthlyInterestRate * unpaidBalance)
+        month += 1
+    if balance > 0:
+        lowBalance = minPayment
+    else:
+        highBalance = minPayment
+    minPayment = (lowBalance + highBalance)/2.0
+minPayment = round(minPayment,2)
+print 'Lowest Payment', minPayment
